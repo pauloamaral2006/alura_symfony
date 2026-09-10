@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\DTO\SeriesCreateFromInput;
+use App\Entity\Episode;
+use App\Entity\Season;
 use App\Entity\Series;
 use App\Form\SeriesType;
 use App\Repository\SeriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +57,7 @@ final class SeriesController extends AbstractController
     public function addSeriesForm(): Response
     {
 
-        $seriesForm = $this->createForm(SeriesType::class, new Series(''));
+        $seriesForm = $this->createForm(SeriesType::class, new SeriesCreateFromInput());
 
         return $this->render('series/form.html.twig', [
             'seriesForm' => $seriesForm,
@@ -68,16 +69,33 @@ final class SeriesController extends AbstractController
     public function addSeries(Request $request): Response
     {
 
-        $serie = new Series('');
-        $serieForm = $this->createForm(SeriesType::class, $serie)->handleRequest($request);
+        $input = new SeriesCreateFromInput();
+        $serieForm = $this->createForm(SeriesType::class, $input)->handleRequest($request);
 
         if (!$serieForm->isValid()) {
             return $this->render('series/form.html.twig', compact('seriesForm'));
         }
 
-        $this->serieRepository->add($serie, true);
+        $series = new Series($input->seriesName);
 
-        $this->addFlash('success', "Série \"{$serie->getName()}\" adicionada com sucesso");
+        for($i = 1; $i <= $input->seasonsQuantity; $i++){
+
+            $season = new Season($i);
+
+            for($j = 1; $j <= $input->episodesPerSeason; $j++){
+
+                $season->addEpisode(new Episode($j));
+
+            }
+
+            $series->addSeason($season);
+
+        }
+
+
+        $this->serieRepository->add($series, true);
+
+        $this->addFlash('success', "Série \"{$series->getName()}\" adicionada com sucesso");
 
         return new RedirectResponse('/series');
 
@@ -118,8 +136,7 @@ final class SeriesController extends AbstractController
 
         $this->serieRepository->removeById($id);
 
-        $session = $request->getSession();
-        $session->Set('success', 'Série removida com sucesso');
+        $this->addFlash('success', 'Série removida com sucesso');
 
         return new RedirectResponse('/series');
 

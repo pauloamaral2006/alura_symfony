@@ -22,6 +22,14 @@
 - Conhecer o componente Symfony Forms
 - Ter mais controle sobre seus formulários
 
+### Symfony Framework: Cache e segurança
+
+- Praticar seu conhecimento de Symfony com considerações sobre performance
+- Aprender a usar cache com Symfony
+- Conhecer mais sobre a linha de comando do Symfony
+- Entender como funciona autenticação no Symfony
+- Realizar controle de acesso com o componente de segurança do Symfony
+
 ## 🖥️ Tecnologias
 
 <div>
