@@ -14,6 +14,14 @@
 - Aprender a lidar com front-end usando Symfony Encore
 - Gerenciar o banco de dados com Doctrine ORM
 
+### Symfony Framework: Formulários, validação e sessão
+
+- Conhecer mais detalhes sobre o framework
+- Praticar injeção de dependências
+- Aprender a manipular sessões com Symfony
+- Conhecer o componente Symfony Forms
+- Ter mais controle sobre seus formulários
+
 ## 🖥️ Tecnologias
 
 <div>
