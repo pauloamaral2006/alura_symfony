@@ -30,6 +30,14 @@
 - Entender como funciona autenticação no Symfony
 - Realizar controle de acesso com o componente de segurança do Symfony
 
+### Symfony Framework: E-mail, processamento assíncrono, uploads e testes
+
+- Enviar e-mails usando Symfony
+- Aprender sobre processamento assíncrono de tarefas
+- Utilizar conceitos de mensageria com Symfony
+- Aprender a manipular uploads com Symfony
+- Saiber como criar testes para suas aplicações Symfony
+
 ## 🖥️ Tecnologias
 
 <div>

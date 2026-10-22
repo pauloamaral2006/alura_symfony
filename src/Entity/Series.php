@@ -29,10 +29,10 @@ class Series
     private Collection $seasons;
 
     public function __construct(
-        #[ORM\Column(length: 255)]
-        #[Assert\NotBlank]
-        #[Assert\Length(min: 5)]
-        private string $name
+        #[ORM\Column]
+        private string $name,
+        #[ORM\Column(nullable:true)]
+        private ?string $coverImagePath = null,
     )
     {
         $this->seasons = new ArrayCollection();
@@ -51,6 +51,18 @@ class Series
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCoverImagePath(): ?string
+    {
+        return $this->coverImagePath;
+    }
+
+    public function setCoverImagePath(string $coverImagePath): self
+    {
+        $this->coverImagePath = $coverImagePath;
 
         return $this;
     }

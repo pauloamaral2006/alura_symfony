@@ -14,11 +14,21 @@
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
 
-                {% if is_granted('ROLE_USER') %}<a href="{{ path('app_seasons', {series: series.id}) }}">{% endif %}
+                <div class="d-flex align-items-center">
+                    {% if series.coverImagePath %}
+                        <img src="{{ asset('uploads/cover_image/') ~ series.coverImagePath }}"
+                             alt=""
+                             class="img-thumbnail me-3"
+                             width="100">
+                    {% endif %}
 
-                    {{ series.name }}
+                    {% if is_granted('ROLE_USER') %}<a href="{{ path('app_seasons', {series: series.id}) }}">{% endif %}
 
-                {% if is_granted('ROLE_USER') %}</a>{% endif %}
+                        {{ series.name }}
+
+                    {% if is_granted('ROLE_USER') %}</a>{% endif %}
+
+                </div>
 
                 {% if is_granted('ROLE_USER') %}
 
@@ -28,7 +38,7 @@
                             E
                         </a>
 
-                        <form method="post" action="{{ path('app_delete_series', {id: series.id})}}">
+                        <form method="post" action="{{ path('app_delete_series', {series: series.id})}}">
 
                             <input type="hidden" name="_method" value="DELETE">
 
